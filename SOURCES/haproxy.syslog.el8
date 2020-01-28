@@ -8,4 +8,4 @@ $template HAProxyAccess,"%msg%\n"
 local2.=info if $programname startswith 'haproxy' then /var/log/haproxy/access.log;HAProxyAccess 
 local2.emerg if $programname startswith 'haproxy' then /var/log/haproxy/error.log;HAProxy
 local2.notice if $programname startswith 'haproxy' then /var/log/haproxy/status.log;HAProxy
-local2.* & stop
+local2.* stop

@@ -5,7 +5,6 @@ After=syslog.target network.target
 
 [Service]
 EnvironmentFile=-/etc/sysconfig/haproxy
-EnvironmentFile=-/etc/sysconfig/haproxy
 Environment="CONFIG=/etc/haproxy/haproxy.cfg" "PIDFILE=/run/haproxy.pid" "EXTRAOPTS=-S /run/haproxy-master.sock"
 ExecStartPre=/usr/sbin/haproxy -f $CONFIG -c -q $EXTRAOPTS
 ExecStart=/usr/sbin/haproxy -Ws -f $CONFIG -p $PIDFILE $EXTRAOPTS
@@ -13,7 +12,6 @@ ExecReload=/usr/sbin/haproxy -f $CONFIG -c -q $EXTRAOPTS
 ExecReload=/bin/kill -USR2 $MAINPID
 KillMode=mixed
 Restart=always
-SuccessExitStatus=143
 Type=notify
 
 # The following lines leverage SystemD's sandboxing options to provide

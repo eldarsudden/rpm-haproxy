@@ -1,12 +1,12 @@
 HOME=$(shell pwd)
 MAINVERSION=2.0
-VERSION=$(shell wget -qO- http://git.haproxy.org/git/haproxy-${MAINVERSION}.git/refs/tags/ | sed -n 's:.*>\(.*\)</a>.*:\1:p' | sed 's/^.//' | sort -rV | head -1)
+VERSION=$(shell wget -qO- https://git.haproxy.org/git/haproxy-${MAINVERSION}.git/refs/tags/ | sed -n 's:.*>\(.*\)</a>.*:\1:p' | sed 's/^.//' | sort -rV | head -1)
 ifeq ("${VERSION}","./")
         VERSION="${MAINVERSION}.0"
 endif
 EXTRA_OBJS="contrib/prometheus-exporter/service-prometheus.o"
-VERSION=2.0.12
-RELEASE=2
+VERSION=2.0.18
+RELEASE=1
 
 all: build
 
@@ -19,7 +19,7 @@ clean:
 	mkdir -p ./rpmbuild/SPECS/ ./rpmbuild/SOURCES/ ./rpmbuild/RPMS/ ./rpmbuild/SRPMS/
 
 download-upstream:
-	wget http://www.haproxy.org/download/${MAINVERSION}/src/haproxy-${VERSION}.tar.gz -O ./SOURCES/haproxy-${VERSION}.tar.gz
+	wget https://www.haproxy.org/download/${MAINVERSION}/src/haproxy-${VERSION}.tar.gz -O ./SOURCES/haproxy-${VERSION}.tar.gz
 
 build: install_prereq clean download-upstream 
 	cp -r ./SPECS/* ./rpmbuild/SPECS/ || true

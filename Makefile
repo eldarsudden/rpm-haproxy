@@ -4,7 +4,9 @@ VERSION=$(shell wget -qO- http://git.haproxy.org/git/haproxy-${MAINVERSION}.git/
 ifeq ("${VERSION}","./")
         VERSION="${MAINVERSION}.0"
 endif
-RELEASE=1
+EXTRA_OBJS="contrib/prometheus-exporter/service-prometheus.o"
+VERSION=2.0.12
+RELEASE=2
 
 all: build
 
@@ -19,7 +21,7 @@ clean:
 download-upstream:
 	wget http://www.haproxy.org/download/${MAINVERSION}/src/haproxy-${VERSION}.tar.gz -O ./SOURCES/haproxy-${VERSION}.tar.gz
 
-build: install_prereq clean download-upstream
+build: install_prereq clean download-upstream 
 	cp -r ./SPECS/* ./rpmbuild/SPECS/ || true
 	cp -r ./SOURCES/* ./rpmbuild/SOURCES/ || true
 	rpmbuild -ba SPECS/haproxy.spec \
